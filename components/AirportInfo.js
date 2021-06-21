@@ -1,5 +1,6 @@
 import React from 'react';
 import './AirportInfo.css';
+import './Movies'
 
 //Following format of workshop
 function AirportInfo() { 
@@ -11,7 +12,7 @@ function AirportInfo() {
         console.log(e);
         async function fetchOMDB() {
             const searchParam = encodeURIComponent(query);
-            const apiURL = 'http://www.omdbapi.com/?i=tt3896198&apikey=6952c71f';
+            const apiURL = 'http://www.omdbapi.com/?i=tt3896198&apikey=6952c71f &s=${searchParam}&r=json';
             console.log(apiURL);
             let reponse = await fetch(apiURL);
             response = await response.json();
@@ -21,7 +22,21 @@ function AirportInfo() {
         fetchOMDB();
         setQuery('');
     }
-    return;
+    return {
+        <div className = "movieinfo">
+            <form onSubmit = {handleSubmit}>
+               <label htmlFor = "queryInput"> Search Movie Name: </label>
+                <input
+                    id = "queryInput"
+                    type = "text"
+                    value = {query}
+                    onChange = {e => setQuery(e.target.value)}
+                    />
+                    <button className = "search">Submit</button>
+                    </form>
+                    <Movies movies = {movies}></Movies>
+                </div>);
+    }
 }
 
 export default AirportInfo;
